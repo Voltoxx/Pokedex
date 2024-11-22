@@ -38,6 +38,9 @@ npx prettier --check .
 # Check les fichiers pour respecter ESLint
 npx eslint .
 
+# Lance les tests Cypress
+npx cypress open
+
 # Build le projet
 npm run build
 ```

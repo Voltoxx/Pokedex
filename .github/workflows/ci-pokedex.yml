@@ -34,6 +34,24 @@ jobs:
       - name: Run ESLint
         run: npx eslint .
 
+        # Lancer le serveur local
+      - name: Start server
+        run: npm run dev
+        env:
+          NODE_ENV: test
+
+      # Attendre que le serveur soit prêt
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:5173
+
+      # Lancer les tests Cypress e2e
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm start
+          wait-on: http://localhost:5173
+          config-file: cypress.config.js
+
       # Build le projet
       - name: Build project
         run: npm run build
