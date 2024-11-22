@@ -36,7 +36,7 @@ jobs:
 
         # Lancer le serveur local
       - name: Start server
-        run: npm run dev
+        run: npm run start &
         env:
           NODE_ENV: test
 
