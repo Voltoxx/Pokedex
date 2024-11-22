@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
-import { PacmanLoader } from 'react-spinners';
+import { PacmanLoader } from "react-spinners";
 
 interface PokemonCard {
   id: string;
@@ -40,7 +40,7 @@ const App: React.FC = () => {
       const queryParts: string[] = [];
       if (searchQuery) queryParts.push(`name:${searchQuery}`);
       if (cardType) queryParts.push(`types:${cardType}`);
-      let queryString =
+      const queryString =
         queryParts.length > 0 ? queryParts.join(' ') : undefined;
 
       const response = await axios.get(`${API_URL}`, {
