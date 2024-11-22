@@ -12,7 +12,7 @@ Le pipeline CI/CD de ce projet est conçu pour automatiser les tâches suivantes
 2. **Tests automatisés** : Exécute des tests d'intégration et des tests de e2e pour vérifier la fonctionnalité de l'application.
 3. **Construction et déploiement** : Construit l'application et la déploie dans l'environnement de staging ou de production.
 
-## Les tests de la pipeline
+## Les tests de la pipeline CI
 
 Pour exécuter les tests localement, utilisez les commandes suivantes :
 
@@ -46,3 +46,9 @@ npm run build
 ```
 
 Pour vérifier que tous les cas fonctionnent, j'ai effectué différents commits qui ont provoqué l'échec du pipeline.
+
+## Le CD
+
+Enfin dès que la PR est merge dans la branche **main**, le projet est directement publié sur mon serveur.
+
+Lien vers le site `https://pokedex.arthurphilippe.fr/`
