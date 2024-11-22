@@ -1,50 +1,45 @@
-# React + TypeScript + Vite
+# Projet Pokedex avec CI/CD
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Vue d'ensemble
 
-Currently, two official plugins are available:
+Ce projet est une application Pokedex construite avec React et TypeScript. L'application permet aux utilisateurs de parcourir et de rechercher des Pokémon et de voir leurs détail. Le projet utilise un pipeline CI/CD pour assurer la qualité du code et automatiser les tests.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Rôle du Pipeline
 
-## Expanding the ESLint configuration
+Le pipeline CI/CD de ce projet est conçu pour automatiser les tâches suivantes :
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. **Vérifications de la qualité du code** : Assure que le code respecte les normes et les meilleures pratiques du projet.
+2. **Tests automatisés** : Exécute des tests d'intégration et des tests de e2e pour vérifier la fonctionnalité de l'application.
+3. **Construction et déploiement** : Construit l'application et la déploie dans l'environnement de staging ou de production.
 
-- Configure the top-level `parserOptions` property like this:
+## Les tests de la pipeline
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+Pour exécuter les tests localement, utilisez les commandes suivantes :
+
+```bash
+# Check le repo Github
+actions/checkout@v4
+
+# Setup Node.js avec la version 20 et utilise le cache de npm
+actions/setup-node@v4
+  with:
+    node-version: '20'
+    cache: 'npm'
+
+# Installe les dépendances
+npm ci
+
+# Check les fichiers pour respecter TypeScript
+npx tsc --noEmit
+
+# Check les fichiers pour respecter Prettier
+npx prettier --check .
+
+# Check les fichiers pour respecter ESLint
+npx eslint .
+
+# Build le projet
+npm run build
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react';
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-});
-```
+Pour vérifier que tous les cas fonctionnent, j'ai effectué différents commits qui ont provoqué l'échec du pipeline.
