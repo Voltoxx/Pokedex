@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
-import { PacmanLoader } from 'react-spinners';
+import { PacmanLoader } from "react-spinners";
 
 interface PokemonCard {
   id: string;
