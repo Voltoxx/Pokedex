@@ -19,5 +19,11 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Run Prettier
+        run: npx prettier --check .
+
+      - name: Run ESLint
+        run: npx eslint .
+
       - name: Message de fin
         run: echo "🎉 Tout est Ok !"
