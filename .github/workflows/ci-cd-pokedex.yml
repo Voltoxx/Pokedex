@@ -1,9 +1,9 @@
-name: CI Pokedex
+name: CI-CD Pokedex
 
 on: [push, pull_request]
 
 jobs:
-  CI-Pokedex:
+  CI-CD-Pokedex:
     runs-on: ubuntu-latest
 
     steps:
@@ -59,6 +59,16 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
+
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Adding Known Host
+        run: ssh-keyscan -H 51.75.23.76 >> ~/.ssh/known_hosts
+      - name: Check SSH agent keys
+        run: ssh-add -l
+      - name: Ls on server
+        run: ssh debian@51.75.23.76 'ls -la /var/www'
 
       # Build le projet
       - name: Build project
