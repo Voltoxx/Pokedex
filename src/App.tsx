@@ -40,7 +40,7 @@ const App: React.FC = () => {
       const queryParts: string[] = [];
       if (searchQuery) queryParts.push(`name:${searchQuery}`);
       if (cardType) queryParts.push(`types:${cardType}`);
-      const queryString =
+      let queryString =
         queryParts.length > 0 ? queryParts.join(' ') : undefined;
 
       const response = await axios.get(`${API_URL}`, {
