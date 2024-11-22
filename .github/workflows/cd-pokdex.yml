@@ -1,0 +1,36 @@
+name: CD Pokedex
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  CD-Pokedex:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Vérification du code source
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Installation des dépendances (si nécessaire pour générer les fichiers dist)
+      - name: Install dependencies
+        run: npm install
+
+      # Exécution de la commande de build pour générer les fichiers dans dist/
+      - name: Build project
+        run: npm run build
+
+      # Configuration de l'agent SSH
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Adding Known Host
+        run: ssh-keyscan -H 51.75.23.76 >> ~/.ssh/known_hosts
+      - name: Check SSH agent keys
+        run: ssh-add -l
+
+      # Envoi des fichiers avec scp
+      - name: Deploy files to server
+        run: scp -r dist/* debian@51.75.23.76:/var/www/pokedex

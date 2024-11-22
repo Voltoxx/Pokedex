@@ -1,6 +1,6 @@
 name: CI Pokedex
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   CI-Pokedex:
@@ -33,6 +33,32 @@ jobs:
       # Check les fichiers pour respecter ESLint
       - name: Run ESLint
         run: npx eslint .
+
+        # Lancer le serveur local
+      - name: Start server
+        run: npm run dev &
+        env:
+          NODE_ENV: test
+
+      # Attendre que le serveur soit prêt
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:5173
+
+      # Lancer les tests Cypress e2e avec la capture vidéo activée
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm run dev
+          wait-on: http://localhost:5173
+          config-file: cypress.config.js
+          record: false # Désactive l'enregistrement sur le dashboard Cypress
+
+      # Enregistrer les vidéos comme artefacts
+      - name: Upload Cypress videos
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos
 
       # Build le projet
       - name: Build project
