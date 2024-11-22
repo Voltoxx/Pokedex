@@ -1,6 +1,6 @@
-import React, { useState, FormEvent } from "react";
-import axios from "axios";
-import { PacmanLoader } from "react-spinners";
+import React, { useState, FormEvent } from 'react';
+import axios from 'axios';
+import { PacmanLoader } from 'react-spinners';
 
 interface PokemonCard {
   id: string;
@@ -15,28 +15,33 @@ interface PokemonCard {
   hp?: string;
 }
 
-const API_URL = "https://api.pokemontcg.io/v2/cards";
-const API_KEY = "d85327a1-36f4-4698-943a-a5a4340d37ed";
+const API_URL = 'https://api.pokemontcg.io/v2/cards';
+const API_KEY = 'd85327a1-36f4-4698-943a-a5a4340d37ed';
 
 const App: React.FC = () => {
-  const [query, setQuery] = useState("");
-  const [type, setType] = useState("");
+  const [query, setQuery] = useState('');
+  const [type, setType] = useState('');
   const [cards, setCards] = useState<PokemonCard[]>([]);
   const [favorites, setFavorites] = useState<PokemonCard[]>([]);
   const [selectedCard, setSelectedCard] = useState<PokemonCard | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [page, setPage] = useState(1);
 
-  const fetchCards = async (pageNumber: number = 1, searchQuery: string = "", cardType: string = "") => {
+  const fetchCards = async (
+    pageNumber: number = 1,
+    searchQuery: string = '',
+    cardType: string = ''
+  ) => {
     setLoading(true);
-    setError("");
+    setError('');
     setCards([]);
     try {
       const queryParts: string[] = [];
       if (searchQuery) queryParts.push(`name:${searchQuery}`);
       if (cardType) queryParts.push(`types:${cardType}`);
-      const queryString = queryParts.length > 0 ? queryParts.join(" ") : undefined;
+      const queryString =
+        queryParts.length > 0 ? queryParts.join(' ') : undefined;
 
       const response = await axios.get(`${API_URL}`, {
         params: {
@@ -45,7 +50,7 @@ const App: React.FC = () => {
           q: queryString,
         },
         headers: {
-          "X-Api-Key": API_KEY,
+          'X-Api-Key': API_KEY,
         },
       });
 
@@ -53,10 +58,8 @@ const App: React.FC = () => {
         setCards(response.data.data);
         setPage(pageNumber);
       } else {
-        setError("Aucune carte trouvée.");
+        setError('Aucune carte trouvée.');
       }
-    } catch (err) {
-      setError("Une erreur est survenue lors de la récupération des cartes.");
     } finally {
       setLoading(false);
     }
@@ -99,9 +102,7 @@ const App: React.FC = () => {
             <option value="Grass">Plante</option>
             <option value="Electric">Électrique</option>
           </select>
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition"
-          >
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition">
             Chercher
           </button>
         </form>
@@ -124,14 +125,17 @@ const App: React.FC = () => {
           >
             <div className="card">
               <div className="card-front">
-                <img src={card.images.large} alt={card.name} className="w-full" />
+                <img
+                  src={card.images.large}
+                  alt={card.name}
+                  className="w-full"
+                />
               </div>
-              <div className="card-back">
-              </div>
+              <div className="card-back"></div>
             </div>
           </div>
         ))}
-      </div>  
+      </div>
 
       {cards.length > 0 && (
         <div className="flex justify-between items-center mt-8">
@@ -190,33 +194,35 @@ const App: React.FC = () => {
               className="w-50 h-50 mx-auto"
             />
             <p className="mt-4 text-gray-700">
-              <strong>Rareté :</strong> {selectedCard.rarity || "Inconnue"}
+              <strong>Rareté :</strong> {selectedCard.rarity || 'Inconnue'}
             </p>
             <p className="text-gray-700">
-              <strong>HP :</strong> {selectedCard.hp || "Inconnu"}
+              <strong>HP :</strong> {selectedCard.hp || 'Inconnu'}
             </p>
             {selectedCard.types && (
               <p className="text-gray-700">
-                <strong>Types :</strong> {selectedCard.types.join(", ")}
+                <strong>Types :</strong> {selectedCard.types.join(', ')}
               </p>
             )}
             {selectedCard.attacks?.map((attack, index) => (
               <li key={index} className="text-gray-700">
-                <strong>{attack.name}</strong> - Coût :{" "}
-                {attack.cost?.join(", ") || "Aucun"} - Dégâts :{" "}
-                {attack.damage || "Aucun"}
+                <strong>{attack.name}</strong> - Coût :{' '}
+                {attack.cost?.join(', ') || 'Aucun'} - Dégâts :{' '}
+                {attack.damage || 'Aucun'}
                 {attack.text && <p className="italic">{attack.text}</p>}
               </li>
-              ))}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleFavorite(selectedCard);
-                }}
-                className="mt-2 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition"
-              >
-                {favorites.some((fav) => fav.id === selectedCard.id) ? "Retirer" : "Ajouter aux favoris"}
-              </button>
+            ))}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleFavorite(selectedCard);
+              }}
+              className="mt-2 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition"
+            >
+              {favorites.some((fav) => fav.id === selectedCard.id)
+                ? 'Retirer'
+                : 'Ajouter aux favoris'}
+            </button>
           </div>
         </div>
       )}

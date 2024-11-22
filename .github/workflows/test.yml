@@ -7,17 +7,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Github checkout
-      uses: actions/checkout@v4
+      - name: Github checkout
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Build project
-      run: npm run build
+      - name: Build project
+        run: npm run build
 
-    - name: Message de fin
-      run : echo "🎉 Tout est Ok !"
+      - name: Message de fin
+        run: echo "🎉 Tout est Ok !"

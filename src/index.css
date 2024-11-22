@@ -3,56 +3,57 @@
 @tailwind utilities;
 
 .card {
-    width: 300px;
-    height: 440px;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.6s;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  
-  .card-container:hover .card {
-    transform: rotateY(180deg);
-  }
-  .card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    backface-visibility: hidden;
-    overflow: hidden;
-  }
-  
-  .card-front img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-  }
-  
-  .card-back {
-    background: url('./pokemon_back_card.png') center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: rotateY(180deg);
-    border-radius: 10px;
-    border: 1px solid #444;
-    overflow: hidden; 
-    position: relative;
-  }
-  
-  .card-back::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    z-index: 1;
-  }
-  
-    .type:disabled {
-        cursor: not-allowed;
-    }
+  width: 300px;
+  height: 440px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.card-container:hover .card {
+  transform: rotateY(180deg);
+}
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.card-front img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.card-back {
+  background: url('./pokemon_back_card.png') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(180deg);
+  border-radius: 10px;
+  border: 1px solid #444;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-back::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.type:disabled {
+  cursor: not-allowed;
+}
