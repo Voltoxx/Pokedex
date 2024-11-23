@@ -36,4 +36,4 @@ jobs:
         run: scp -r dist/* debian@51.75.23.76:/home/debian/pokedex_temp
 
       - name: Move files to /var/www/pokedex
-        run: ssh debian@51.75.23.76 "sudo mv /home/debian/pokedex_temp/* /var/www/pokedex && sudo chown -R www-data:www-data /var/www/pokedex"
+        run: ssh debian@51.75.23.76 "sudo rsync -av /home/debian/pokedex_temp/ /var/www/pokedex/ && sudo chown -R www-data:www-data /var/www/pokedex"
